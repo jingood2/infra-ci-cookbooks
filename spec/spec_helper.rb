@@ -17,7 +17,11 @@ end
 
 host = ENV['TARGET_HOST']
 
-`vagrant up #{host}`
+if ENV['CIRCLECI']
+  options = Net::SSH::Config.for(host, ["~/.ssh/config"])
+  options[:user] = "root"
+else
+  `vagrant up #{host}`
 
 config = Tempfile.new('', Dir.tmpdir)
 config.write(`vagrant ssh-config #{host}`)
