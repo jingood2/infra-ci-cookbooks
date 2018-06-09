@@ -1,5 +1,0 @@
-machine:
-  ruby:
-    version: 2.3.3
-  environment:
-    TERRAFORM_VERSION: 0.11.7
