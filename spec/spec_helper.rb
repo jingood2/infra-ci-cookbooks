@@ -23,13 +23,13 @@ if ENV['CIRCLECI']
 else
   `vagrant up #{host}`
 
-config = Tempfile.new('', Dir.tmpdir)
-config.write(`vagrant ssh-config #{host}`)
-config.close
+  config = Tempfile.new('', Dir.tmpdir)
+  config.write(`vagrant ssh-config #{host}`)
+  config.close
 
-options = Net::SSH::Config.for(host, [config.path])
-
-options[:user] ||= Etc.getlogin
+  options = Net::SSH::Config.for(host, [config.path])
+  options[:user] ||= Etc.getlogin
+end
 
 set :host,        options[:host_name] || host
 set :ssh_options, options
